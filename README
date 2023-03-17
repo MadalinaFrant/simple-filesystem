@@ -1,0 +1,86 @@
+Tema 1 IOCLA - Frant Madalina 324CB
+
+In main se citeste de la input linie cu linie pana se intalneste "stop". Se 
+sparge linia in comenzi, si daca este cazul, argumente. In functie de aceste 
+comenzi se apeleaza functia corespunzatoare. Pentru implementarea temei s-a 
+folosit o structura de tip director ce retine directorul curent. Functiile 
+vor fi apelate pentru acest director curent (mai putin stop).
+
+Functiile file_exists_in_dir si dir_exists_in_dir verifica existenta unui fisier, 
+respectiv director in directorul parent dat ca parametru, comparand numele dat 
+ca parametru cu numele fiecarui fisier/director din lista de fisiere/directoare.
+Daca fisierul/directorul este gasit, functia intoarce 1 si 0 in caz contrar.
+
+Functia touch creeaza un fisier nou in directorul curent astfel: se verifica 
+mai intai existenta unui fisier cu acelasi nume. Daca este gasit, se va afisa 
+un mesaj corespunzator si se va iesi din functie. Altfel, se creeaza un fisier nou, 
+alocandu-se memoria necesara si initializandu-se campurile structurii, apoi se
+adauga fisierul la finalul listei de fisiere.
+
+Functia mkdir creeaza un director nou in directorul curent astfel: se verifica 
+mai intai existenta unui director cu acelasi nume. Daca este gasit, se va afisa 
+un mesaj corespunzator si se va iesi din functie. Altfel, se creeaza un director nou, 
+alocandu-se memoria necesara si initializandu-se campurile structurii, apoi se
+adauga directorul la finalul listei de directoare.
+
+Functia ls afiseaza mai intai toate directoarele, apoi toate fisierele din
+directorul curent.
+
+Functia rm elimina fisierul din directorul curent astfel: se verifica mai intai 
+existenta fisierului in directorul dat ca parametru. Daca nu este gasit, se va 
+afisa un mesaj corespunzator si se va iesi din functie. Altfel, se elimina 
+fisierul din lista de fisiere (se parcurge lista retinand elementul anterior, se
+actualizeaza legaturile, se elibereaza memoria aferenta elementului eliminat).
+
+Functia rmdir este similara functiei rm, aceasta aplicandu-se pentru un director,
+in locul unui fisier. In plus fata de functia rm, inaintea eliminarii efective a 
+directorului se sterg mai intai toate fisierele (utilizand functia rm) si directoarele 
+(utilizand functia rmdir) din interiorul acestuia.
+
+Functia cd schimba directorul curent in cel dat ca parametru astfel: se trateaza cazul
+in care sirul dat ca parametru este ".."; in acest caz directorul curent devine cel
+parinte si se iese din functie. Apoi, se verifica mai intai daca directorul dat ca 
+parametru exista in lista directoarelor a directorului curent; daca nu este gasit, se
+afiseaza un mesaj corespunzator si se iese din functie. In caz contrar, directorul 
+curent va deveni directorul dat ca parametru.
+
+Functia tree afiseaza continutul directorului in forma arborescenta, in mod recursiv.
+Se afiseaza mai intai directoarele, dupa afisarea unuia afisandu-se tot ceea ce contine
+acesta (apeland functia tree cu parametrul level + 1). Apoi se vor afisa fisierele din
+director. Parametrul level este folosit pentru a afisa intr-un mod arborescent, afisand 
+un numar de level spatii inaintea directorului/fisierului afisat. Astfel, in main functia 
+va fi apelata cu parametrul level = 0.
+
+Functia pwd returneaza calea de la directorul radacina la directorul curent astfel:
+initial path va contine doar null terminator-ul ('\0'). Pentru fiecare director parinte,
+pornind de la directorul curent si pana se ajunge la directorul radacina home se va aloca
+un sir auxiliar aux, care va adauga "/" + numele directorului inaintea path-ului. Sirul 
+path va fi realocat pentru a putea retine dimensiunea corespunzatoare, luand valoarea 
+sirului aux.
+
+Functia mv va schimba numele directorului/fisierului oldname din directorul curent in
+newname. Mai intai se verifica daca directorul/ fisierul oldname exista, iar daca nu 
+se va afisa un mesaj corespunzator si se va iesi din functie. Apoi se va verifica 
+existenta unui director/ fisier cu numele newname, in cazul in care exista deja 
+afisandu-se un mesaj corespunzator, iesindu-se din functie. Dupa ce au fost verificate 
+aceste conditii, se va realiza redenumirea, apeland functia mv_file in cazul unui 
+fisier, respectiv mv_dir in cazul unui director.
+
+Functia mv_file muta fisierul ce trebuie redenumit la sfarsitul listei de fisiere astfel:
+se trateaza mai intai cazul unei liste cu un singur element, caz in care acest element este 
+deja sfarsitul listei, deci nu trebuie mutat; trebuie doar modificat numele acestuia. Altfel,
+se trateaza cazul general, parcurgandu-se lista retinand elementul anterior pentru a putea 
+realiza legaturile. La final, se actualizeaza campul name al fisierului mutat.
+
+Functia mv_dir este similara functiei mv_file, tratand in schimb cazul unui director.
+
+Functia stop realizeaza eliberarea memoriei alocate pentru directoare si fisiere.
+Aceasta va fi apelata cu parametrul home_dir, adica directorul radacina, si astfel 
+se vor dezaloca toate fisierele si directoarele din acesta. In cazul celui de-al doilea 
+for, apelandu-se rmdir pentru fiecare director din home se va asigura stergerea tuturor 
+directoarelor si fisierelor continute in acestea. Atat in cadrul functiei stop, cat si 
+in rmdir, se realizeaza cate un for pentru stergerea tuturor fisierelor/directoarelor 
+din interiorul directorului. Deoarece trecand la urmatoarea iteratie si eliberand prin 
+rm/rmdir memorie se va accesa o zona de memorie deja eliberata, trebuie sa se retina 
+in next urmatoarea iteratie, pentru ca iteratorul sa ia aceasta valoare abia dupa apelarea
+functiei rm/rmdir.
