@@ -1,5 +1,3 @@
-Tema 1 IOCLA - Frant Madalina 324CB
-
 In main se citeste de la input linie cu linie pana se intalneste "stop". Se 
 sparge linia in comenzi, si daca este cazul, argumente. In functie de aceste 
 comenzi se apeleaza functia corespunzatoare. Pentru implementarea temei s-a 
